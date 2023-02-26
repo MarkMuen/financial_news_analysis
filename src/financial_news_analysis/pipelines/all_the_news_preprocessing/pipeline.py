@@ -17,16 +17,16 @@ def create_pipeline(**kwargs) -> Pipeline:
                 name="all_the_news_prepocessed"
             ),
             node(
-                func=clean_texts,
-                inputs=["preprocessed_news"],
-                outputs="cleaned_news",
-                name="clean_news_texts"
+                func=filter_news_data,
+                inputs=["preprocessed_news", "params:start_date"],
+                outputs="filtered_all_the_news_data",
+                name="filter_data"
             ),
             node(
-                func=filter_news_data,
-                inputs=["cleaned_news", "params:start_date"],
-                outputs="cleaned_all_the_news_data",
-                name="filter_data"
+                func=clean_texts,
+                inputs=["filtered_all_the_news_data"],
+                outputs="cleaned_news",
+                name="clean_news_texts"
             )
         ]
     )
