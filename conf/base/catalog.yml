@@ -1,4 +1,31 @@
-# Here you can define all your data sets by using simple YAML syntax.
-#
-# Documentation for this file format can be found in "The Data Catalog"
-# Link: https://kedro.readthedocs.io/en/stable/data/data_catalog.html
+analyst_ratings_titles:
+  type: pandas.CSVDataSet
+  filepath: data/01_raw/daily_financial_news/analyst_ratings_processed.csv
+
+analyst_ratings_titles_preprocessed:
+  type: pandas.ParquetDataSet
+  filepath: data/02_intermediate/analyst_ratings_titles_preprocessed.pq
+
+cnbc_headlines:
+  type: pandas.CSVDataSet
+  filepath: data/01_raw/financial_ news_headlines_data/cnbc_headlines.csv
+
+guardian_headlines:
+  type: pandas.CSVDataSet
+  filepath: data/01_raw/financial_ news_headlines_data/guardian_headlines.csv
+
+reuters_headlines:
+  type: pandas.CSVDataSet
+  filepath: data/01_raw/financial_ news_headlines_data/reuters_headlines.csv
+
+cleaned_headline_data:
+  type: pandas.ParquetDataSet
+  filepath: data/02_intermediate/clean_preprocessed_headlines.pq
+
+all_the_news:
+  type: pandas.CSVDataSet
+  filepath: data/01_raw/all_the_news/all-the-news-2-1.csv
+
+cleaned_all_the_news_data:
+  type: pandas.ParquetDataSet
+  filepath: data/02_intermediate/cleaned_all_the_news_data.pq
