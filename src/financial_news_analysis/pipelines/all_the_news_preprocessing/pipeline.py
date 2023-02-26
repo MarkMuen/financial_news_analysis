@@ -13,20 +13,20 @@ def create_pipeline(**kwargs) -> Pipeline:
             node(
                 func=preprocess_data,
                 inputs=["all_the_news"],
-                outputs="preprocessed_news",
-                name="all_the_news_prepocessed"
+                outputs="preprocessed_all_the_news",
+                name="preprocess_news"
             ),
             node(
                 func=filter_news_data,
-                inputs=["preprocessed_news", "params:start_date"],
+                inputs=["preprocessed_all_the_news", "params:start_date"],
                 outputs="filtered_all_the_news_data",
-                name="filter_data"
+                name="filer_news"
             ),
             node(
                 func=clean_texts,
                 inputs=["filtered_all_the_news_data"],
-                outputs="cleaned_news",
-                name="clean_news_texts"
+                outputs="cleaned_all_the_news_data",
+                name="clean_news"
             )
         ]
     )
