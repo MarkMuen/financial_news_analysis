@@ -26,6 +26,6 @@ all_the_news:
   type: pandas.CSVDataSet
   filepath: data/01_raw/all_the_news/all-the-news-2-1.csv
 
-cleaned_all_the_news_data:
+cleaned_with_text_col_all_the_news_data:
   type: pandas.ParquetDataSet
-  filepath: data/02_intermediate/cleaned_all_the_news_data.pq
+  filepath: data/02_intermediate/cleaned_with_text_col_all_the_news_data.pq

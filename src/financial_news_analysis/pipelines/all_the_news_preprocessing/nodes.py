@@ -25,6 +25,20 @@ def preprocess_data(df_news: pd.DataFrame) -> pd.DataFrame:
     return df_news
 
 
+def create_text_col(df_news: pd.DataFrame) -> pd.DataFrame:
+    """Add text column as concat of tile and article
+
+    Args:
+        df_news (pd.DataFrame): News Dataframe containing 
+        tile and article
+
+    Returns:
+        pd.DataFrame: Dataframe with text column
+    """
+    df_news["text"] = df_news.apply(lambda r: r["title"] + ". " + r["article"], axis=1)
+    return df_news
+
+
 def clean_texts(df_news: pd.DataFrame) -> pd.DataFrame:
     """Clean article texts
 
