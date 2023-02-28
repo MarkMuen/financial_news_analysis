@@ -13,14 +13,14 @@ def create_pipeline(**kwargs) -> Pipeline:
             node(
                 func=create_sentence_df,
                 inputs=["cleaned_with_text_col_all_the_news_data"],
-                outputs="sentences_all_the_news_data",
-                name="create_sentence_df"
+                outputs="title_sentences_all_the_news_data",
+                name="create_title_sentence_df"
             ),
             node(
                 func=create_ner_tags,
-                inputs=["sentences_all_the_news_data"],
-                outputs="ner_annotations_all_the_news",
-                name="ner_annotations"
+                inputs=["title_sentences_all_the_news_data"],
+                outputs="title_ner_annotations_all_the_news",
+                name="ner_title_annotations"
             )
         ]
     )

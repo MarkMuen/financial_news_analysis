@@ -29,3 +29,11 @@ all_the_news:
 cleaned_with_text_col_all_the_news_data:
   type: pandas.ParquetDataSet
   filepath: data/02_intermediate/cleaned_with_text_col_all_the_news_data.pq
+
+title_sentences_all_the_news_data:
+  type: pandas.ParquetDataSet
+  filepath: data/02_intermediate/sentences_all_the_news_data.pq
+
+title_ner_annotations_all_the_news:
+  type: pandas.ParquetDataSet
+  filepath: data/02_intermediate/ner_annotations_all_the_news.pq

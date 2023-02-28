@@ -29,13 +29,20 @@ def create_text_col(df_news: pd.DataFrame) -> pd.DataFrame:
     """Add text column as concat of tile and article
 
     Args:
-        df_news (pd.DataFrame): News Dataframe containing 
+        df_news (pd.DataFrame): News Dataframe containing
         tile and article
 
     Returns:
         pd.DataFrame: Dataframe with text column
     """
-    df_news["text"] = df_news.apply(lambda r: r["title"] + ". " + r["article"], axis=1)
+    df_news["text"] = df_news.apply(
+            lambda r: r[TEXT_COLS[0]]+". "+r[TEXT_COLS[1]],
+            axis=1
+        )
+    df_news["text_cleaned"] = df_news.apply(
+            lambda r: r[f"{TEXT_COLS[0]}_cleaned"]+". "+r[f"{TEXT_COLS[1]}_cleaned"],
+            axis=1
+        )
     return df_news
 
 
@@ -49,8 +56,8 @@ def clean_texts(df_news: pd.DataFrame) -> pd.DataFrame:
         pd.DataFrame: All the news data with cleaned texts
     """
     for c in TEXT_COLS:
-        df_news[c] = df_news[c].astype(str)
-        df_news[c] = df_news[c].apply(lambda x: preprocess_string(x))
+        df_news[c] = df_news[c].astype(str) 
+        df_news[f"{c}_cleaned"] = df_news[c].apply(lambda x: preprocess_string(x))
     return df_news
 
 

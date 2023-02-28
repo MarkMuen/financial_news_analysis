@@ -20,7 +20,7 @@ def split_into_sentences(text: str) -> List[str]:
 
 
 def process_article_to_sents(row: pd.Series) -> pd.DataFrame:
-    """Create a dataframe with sentences from text in pandas row
+    """Create a dataframe with sentences from raw title text in pandas row
 
     Args:
         row (pd.Series): row of raw data set
@@ -28,7 +28,7 @@ def process_article_to_sents(row: pd.Series) -> pd.DataFrame:
     Returns:
         pd.DataFrame: dataframe of sentences and articel id
     """
-    sents = split_into_sentences(row["text"])
+    sents = split_into_sentences(row["title"])
     data = [[row.name, i, s] for i, s in enumerate(sents)]
     df_sents = pd.DataFrame(data, columns=["article_id", "sentence_nr", "sentence"])
     return df_sents
