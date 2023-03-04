@@ -4,6 +4,36 @@ from .utils import preprocess_string
 TEXT_COLS = ["title", "article"]
 
 
+def create_stats_time(df_news: pd.DataFrame) -> pd.DataFrame:
+    """Create distribution over time for news articles
+
+    Args:
+        df_news (pd.DataFrame): Dataframe with news data
+
+    Returns:
+        pd.DataFrame: Distribution of articles over time
+    """
+    df_stats = df_news[['year', 'month', 'title']]\
+        .groupby(['year', 'month'])\
+        .count()\
+        .sort_values(['year', 'month'])
+
+    return df_stats
+
+
+def create_stats_publisher(df_news: pd.DataFrame) -> pd.DataFrame:
+    """Create Statistic for Publishers
+
+    Args:
+        df_news (pd.DataFrame): News data 
+
+    Returns:
+        pd.DataFrame: Descreptive statisics for publisher
+    """
+    df_stats = df_news[['publication', 'title']].groupby(['publication']).count()
+    return df_stats
+
+
 def preprocess_data(df_news: pd.DataFrame) -> pd.DataFrame:
     """Preprocess all the news dataset
 

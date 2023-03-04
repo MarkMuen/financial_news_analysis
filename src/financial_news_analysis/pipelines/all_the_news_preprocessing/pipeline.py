@@ -4,7 +4,8 @@ generated using Kedro 0.18.5
 """
 
 from kedro.pipeline import Pipeline, node, pipeline
-from .nodes import preprocess_data, clean_texts, filter_news_data, create_text_col
+from .nodes import preprocess_data, clean_texts, filter_news_data, create_text_col,\
+    create_stats_publisher, create_stats_time
 
 
 def create_pipeline(**kwargs) -> Pipeline:
@@ -33,6 +34,18 @@ def create_pipeline(**kwargs) -> Pipeline:
                 inputs=["cleaned_all_the_news_data"],
                 outputs="cleaned_with_text_col_all_the_news_data",
                 name="add_text_column"
+            ),
+            node(
+                func=create_stats_publisher,
+                inputs=["cleaned_with_text_col_all_the_news_data"],
+                outputs="publisher_stats_all_the_news_data",
+                name="create_publisher_stats"
+            ),
+            node(
+                func=create_stats_time,
+                inputs=["cleaned_with_text_col_all_the_news_data"],
+                outputs="time_stats_all_the_news_data",
+                name="create_time_stats"
             )
         ]
     )
