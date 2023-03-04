@@ -36,4 +36,12 @@ title_sentences_all_the_news_data:
 
 title_ner_annotations_all_the_news:
   type: pandas.ParquetDataSet
-  filepath: data/02_intermediate/ner_annotations_all_the_news.pq
+  filepath: data/02_intermediate/title_ner_annotations_all_the_news.pq
+
+article_sentences_all_the_news_data:
+  type: pandas.ParquetDataSet
+  filepath: data/02_intermediate/article_sentences_all_the_news_data.pq
+
+article_ner_annotations_all_the_news:
+  type: pandas.ParquetDataSet
+  filepath: data/02_intermediate/article_ner_annotations_all_the_news.pq

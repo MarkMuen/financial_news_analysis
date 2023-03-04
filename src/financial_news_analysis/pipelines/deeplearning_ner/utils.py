@@ -2,7 +2,6 @@ import nltk
 from typing import List, Dict, Any
 import pandas as pd
 import flair
-import string
 
 
 def split_into_sentences(text: str, num_sents: int = None) -> List[str]:
@@ -115,18 +114,3 @@ def perform_ner_annotation(row: pd.Series,
                                                 row.name,
                                                 row["sentence_nr"])
     return sentence_annos
-
-
-def preprocess_string(text: str) -> str:
-    """Clean string from special charactrs and upper case
-
-    Args:
-        text (str): raw text
-
-    Returns:
-        str: clean text
-    """
-    text = text.lower()
-    text = text.translate(str.maketrans("", "", string.punctuation))
-
-    return text

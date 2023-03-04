@@ -1,5 +1,5 @@
 import pandas as pd
-from ..utils import preprocess_string
+from .utils import preprocess_string
 
 TEXT_COLS = ["title", "article"]
 

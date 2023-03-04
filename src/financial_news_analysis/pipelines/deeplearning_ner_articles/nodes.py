@@ -16,7 +16,7 @@ def create_sentence_df(df_news: pd.DataFrame, sents_num: int = None) -> pd.DataF
         pd.Dataframe: _description_
     """
     sents = df_news.progress_apply(
-            lambda row: process_article_to_sents(row, "title", sents_num), axis=1
+            lambda row: process_article_to_sents(row, "article", sents_num), axis=1
         )
     sents = sents.to_list()
 

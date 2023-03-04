@@ -1,7 +1,7 @@
 import datetime
 import pandas as pd
 
-from ..utils import preprocess_string
+from .utils import preprocess_string
 
 VALS_TO_REPLACE = {"Feb": "February", "Jan": "January", "Dec": "December",
                    "Nov": "November", "Oct": "October", "Sept": "September",
