@@ -8,15 +8,23 @@ analyst_ratings_titles_preprocessed:
 
 cnbc_headlines:
   type: pandas.CSVDataSet
-  filepath: data/01_raw/financial_ news_headlines_data/cnbc_headlines.csv
+  filepath: data/01_raw/financial_news_headlines_data/cnbc_headlines.csv
 
 guardian_headlines:
   type: pandas.CSVDataSet
-  filepath: data/01_raw/financial_ news_headlines_data/guardian_headlines.csv
+  filepath: data/01_raw/financial_news_headlines_data/guardian_headlines.csv
 
 reuters_headlines:
   type: pandas.CSVDataSet
-  filepath: data/01_raw/financial_ news_headlines_data/reuters_headlines.csv
+  filepath: data/01_raw/financial_news_headlines_data/reuters_headlines.csv
+
+eikon_ticker:
+  type: pandas.CSVDataSet
+  filepath: data/01_raw/ticker_data/eikon_ticker.csv
+
+robin_hood_ticker:
+  type: pandas.CSVDataSet
+  filepath: data/01_raw/ticker_data/robin_hood_ticker.csv
 
 cleaned_headline_data:
   type: pandas.ParquetDataSet
