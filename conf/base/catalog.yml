@@ -65,3 +65,7 @@ time_stats_all_the_news_data:
 eikon_ticker_preprocessed:
   type: pandas.ParquetDataSet
   filepath: data/02_intermediate/eikon_ticker_preprocessed.pq
+
+article_raw_ner_annotations_all_the_news:
+  type: pandas.ParquetDataSet
+  filepath: data/02_intermediate/article_raw_ner_annotations_all_the_news.pq
