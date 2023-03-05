@@ -61,3 +61,7 @@ publisher_stats_all_the_news_data:
 time_stats_all_the_news_data:
   type: pandas.ParquetDataSet
   filepath: data/08_reporting/time_stats_all_the_news_data.pq
+
+eikon_ticker_preprocessed:
+  type: pandas.ParquetDataSet
+  filepath: data/02_intermediate/eikon_ticker_preprocessed.pq
