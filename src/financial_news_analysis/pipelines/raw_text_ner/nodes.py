@@ -8,7 +8,7 @@ tqdm.pandas()
 
 
 @dataclass
-class Ner_Annotation:
+class NerAnnotation:
     """Dataclass that stores information for company name matches"""
     article_id: int
     ticker_id: str
@@ -23,7 +23,7 @@ class Ner_Annotation:
 def create_annotations_from_raw_text(art_idx: int,
                                      news: str,
                                      ticker: str,
-                                     names: List[str]) -> Ner_Annotation:
+                                     names: List[str]) -> NerAnnotation:
     """ Function to find company names in preprocessed news article 
 
     Args:
@@ -33,14 +33,14 @@ def create_annotations_from_raw_text(art_idx: int,
         names (List[str]): List of relevant company names
 
     Returns:
-        Ner_Annotation: Found match for this company
+        NerAnnotation: Found match for this company
     """
     anno = None
     idx = [news.find(n) for n in names if n is not None]
 
     if any([i > -1 for i in idx]):
         idx = [i for i in idx if i > -1]
-        anno = Ner_Annotation(
+        anno = NerAnnotation(
             article_id=art_idx,
             ticker_id=ticker,
             match_index=min(idx),

@@ -11,6 +11,7 @@ FORBIDDES_NAME_PARTS = {".com": "",
                         "(nas)": "",
                         "(xsc)": "",
                         "(nasdaq non-national)": "",
+                        "equinix reit": "equinix",
                         "meta platforms": "meta",
                         "cisco systems": "cisco",
                         "Global Holdings": "holdings"
@@ -41,10 +42,11 @@ def clean_names(name: str) -> str:
         str: clean name of entity
     """
     name = name.lower()
-    name = basename(name)
 
     for k, v in FORBIDDES_NAME_PARTS.items():
         name = name.replace(k, v)
+
+    name = basename(name)
 
     tokens = word_tokenize(name)
     tokens = [t for t in tokens if len(t) > 1]
