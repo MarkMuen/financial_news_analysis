@@ -133,3 +133,31 @@ def select_relevant_cols(df_ticker: pd.DataFrame) -> pd.DataFrame:
     df_ticker = df_ticker.dropna()
 
     return df_ticker
+
+
+def select_relevant_cols_rh(df_rh: pd.DataFrame) -> pd.DataFrame:
+    """Drop irrelevant columns from robin hood ticker
+
+    Args:
+        df_rh (pd.DataFrame): Robin hood ticker data
+
+    Returns:
+        pd.DataFrame: Robin hood ticker with reduced columns
+    """
+    df_rh = df_rh.drop(columns=["Unnamed: 0"])
+    df_rh = df_rh.rename(columns={"Ticker": "ticker"})
+    return df_rh
+
+
+def join_ticker_data_sources(df_ek: pd.DataFrame, df_rh: pd.DataFrame) -> pd.DataFrame:
+    """Join ticker data from Robin Hood and Eikon datasets
+
+    Args:
+        df_ek (pd.DataFrame): Eikon ticker data
+        df_rh (pd.DataFrame): Robin hood ticker data
+
+    Returns:
+        pd.DataFrame: Joined ticker data from both sources
+    """
+    df_ticker_joined = df_ek.merge(df_rh, how="inner", on=["ticker"])
+    return df_ticker_joined[["ticker", "name", "full_name"]]

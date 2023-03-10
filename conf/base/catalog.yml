@@ -26,6 +26,10 @@ robin_hood_ticker:
   type: pandas.CSVDataSet
   filepath: data/01_raw/ticker_data/robin_hood_ticker.csv
 
+ek_rh_merged_ticker_data:
+  type: pandas.ParquetDataSet
+  filepath: data/02_intermediate/ek_rh_merged_ticker_data.pq
+
 cleaned_headline_data:
   type: pandas.ParquetDataSet
   filepath: data/02_intermediate/clean_preprocessed_headlines.pq
