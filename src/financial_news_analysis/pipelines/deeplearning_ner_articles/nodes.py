@@ -7,13 +7,13 @@ tqdm.pandas()
 
 
 def create_sentence_df(df_news: pd.DataFrame, sents_num: int = None) -> pd.DataFrame:
-    """_summary_
+    """Separates the news dataset into a dataset of sentences
 
     Args:
-        df_news (pd.DataFrame): _description_
+        df_news (pd.DataFrame): Dataset containing news data
 
     Returns:
-        pd.Dataframe: _description_
+        pd.Dataframe: Dataset of sentences with reference to article
     """
     sents = df_news.progress_apply(
             lambda row: process_article_to_sents(row, "article", sents_num), axis=1
@@ -28,7 +28,7 @@ def create_ner_tags(df_news: pd.DataFrame) -> pd.DataFrame:
     https://huggingface.co/flair/ner-english-ontonotes-large
 
     Args:
-        df_news (pd.DataFrame): Data Frame containing text
+        df_news (pd.DataFrame): Data Frame containing sentences
 
     Returns:
         pd.DataFrame: DataFrame with annotations

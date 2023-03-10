@@ -8,11 +8,11 @@ def split_into_sentences(text: str, num_sents: int = None) -> List[str]:
     """_summary_
 
     Args:
-        text (str): Raw text 
+        text (str): Raw text
         num_sents (int): Number of sentence to consider
 
     Returns:
-        List[str]: _description_
+        List[str]: List of sentences
     """
 
     sents = nltk.tokenize.sent_tokenize(text, language='english')
