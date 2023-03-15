@@ -1,11 +1,29 @@
+import os
 import nltk
 from typing import List, Dict, Any
+from pathlib import Path
 import pandas as pd
 import flair
+from flair.models import SequenceTagger
+
+
+MODEL_PATH = "models_files/tagger"
+MODEL_NAME = "flair/ner-english-ontonotes-large"
+
+
+def save_ner_models():
+    """Save model to local file
+    """
+    tagger = SequenceTagger.load(MODEL_NAME)
+    Path(os.path.join(MODEL_PATH, MODEL_NAME.split("/")[0])).mkdir(exist_ok=True,
+                                                                   parents=True)
+    p = os.path.join(MODEL_PATH, MODEL_NAME)
+    tagger.save(f"{p}.pt")
+    print(f"Model saved in as {p}")
 
 
 def split_into_sentences(text: str, num_sents: int = None) -> List[str]:
-    """_summary_
+    """Split text into limited number of serntences
 
     Args:
         text (str): Raw text
@@ -114,3 +132,8 @@ def perform_ner_annotation(row: pd.Series,
                                                 row.name,
                                                 row["sentence_nr"])
     return sentence_annos
+
+
+if __name__ == "__main__":
+    print("Save model to local files")
+    save_ner_models()

@@ -3,4 +3,4 @@ headline_config_source_c: "cnbc"
 headline_config_source_g: "guardian" 
 headline_config_source_r: "reuters" 
 start_date: "2018-05-02"
-all_the_news_articles_num_sent: 25
+all_the_news_articles_num_sent: 15

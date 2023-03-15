@@ -1,5 +1,7 @@
+import os 
 import pandas as pd
-from .utils import process_article_to_sents, perform_ner_annotation
+from .utils import process_article_to_sents, perform_ner_annotation, \
+    MODEL_NAME, MODEL_PATH
 from tqdm import tqdm
 from flair.models import SequenceTagger
 
@@ -33,7 +35,13 @@ def create_ner_tags(df_news: pd.DataFrame) -> pd.DataFrame:
     Returns:
         pd.DataFrame: DataFrame with annotations
     """
-    tagger = SequenceTagger.load("flair/ner-english-ontonotes-large")
+
+    p = os.path.join(MODEL_PATH, f"{MODEL_NAME}.pt")
+    if os.path.exists(p):
+        tagger = SequenceTagger.load(p)
+    else:
+        tagger = SequenceTagger.load(MODEL_NAME)
+
     annos = df_news.progress_apply(
             lambda row: perform_ner_annotation(row, tagger), axis=1
         )
