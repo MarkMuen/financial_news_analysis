@@ -1,4 +1,4 @@
-import os 
+import os
 import pandas as pd
 from .utils import process_article_to_sents, perform_ner_annotation, \
     MODEL_NAME, MODEL_PATH
