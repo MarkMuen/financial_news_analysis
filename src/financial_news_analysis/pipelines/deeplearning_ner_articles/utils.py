@@ -1,14 +1,14 @@
 import os
+from pathlib import Path
 import nltk
 from typing import List, Dict, Any
-from pathlib import Path
 import pandas as pd
 import flair
 from flair.models import SequenceTagger
 
 
 MODEL_PATH = "models_files/tagger"
-MODEL_NAME = "flair/ner-english-ontonotes-large"
+MODEL_NAME = "flair/ner-english-fast"
 
 
 def save_ner_models():
