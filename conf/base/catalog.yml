@@ -22,6 +22,18 @@ eikon_ticker:
   type: pandas.CSVDataSet
   filepath: data/01_raw/ticker_data/eikon_ticker.csv
 
+eikon_names:
+  type: pandas.ExcelDataSet
+  filepath: data/01_raw/ticker_data/eikon_names.xlsx
+
+eikon_names_cleaned:
+  type: pandas.ParquetDataSet
+  filepath: data/02_intermediate/eikon_names_cleaned.pq
+
+eikon_ticker_merged:
+  type: pandas.ParquetDataSet
+  filepath: data/02_intermediate/eikon_ticker_merged.pq
+
 robin_hood_ticker:
   type: pandas.CSVDataSet
   filepath: data/01_raw/ticker_data/robin_hood_ticker.csv

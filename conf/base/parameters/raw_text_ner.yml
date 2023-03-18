@@ -3,3 +3,12 @@
 #
 # Documentation for this file format can be found in "Parameters"
 # Link: https://kedro.readthedocs.io/en/0.18.5/kedro_project_setup/configuration.html#parameters
+name_columns_eikon_ticker:
+  - name
+  - full_name
+name_columns_eikon_names:
+  - add_name_1
+  - add_name_2
+  - add_name_3
+  - add_name_4
+  - add_name_5
