@@ -1,4 +1,5 @@
 import os
+import logging
 from pathlib import Path
 import nltk
 from typing import List, Dict, Any
@@ -76,9 +77,10 @@ def create_annotation_data_set(anno_data: List[Dict[str, Any]],
     """
 
     for anno in anno_data:
-        anno["article_id"] = doc_id
-        anno["sentence_id"] = sen_id
-        anno["sentence_nr"] = sen_num
+        if anno:
+            anno["article_id"] = doc_id
+            anno["sentence_id"] = sen_id
+            anno["sentence_nr"] = sen_num
 
     return pd.DataFrame(anno_data)
 
@@ -94,9 +96,13 @@ def get_ner_annotations(text: str,
     Returns:
         flair.data.Sentence: Flair sentence object with annotations
     """
-    sentence = flair.data.Sentence(text)
-    tagger.predict(sentence)
-    return sentence
+    try:
+        sentence = flair.data.Sentence(text)
+        tagger.predict(sentence)
+        return sentence
+    except Exception as e:
+        logging.error(f"Error in NER prediction: {e}")
+        return None
 
 
 def parse_ner_annotation(sentence: flair.data.Sentence) -> List[Dict[str, Any]]:
@@ -109,21 +115,47 @@ def parse_ner_annotation(sentence: flair.data.Sentence) -> List[Dict[str, Any]]:
         List[List[str]]: list of annotation attributes
     """
     annos = []
-    for entity in sentence.get_spans("ner"):
-        annos.append(
-            {
-                "text": entity.text,
-                "label": entity.get_label("ner").value,
-                "confidence": entity.get_label("ner").score,
-                "start_pos": entity.start_position,
-                "end_pos": entity.end_position
-            }
-        )
+    if sentence:
+        try:
+            spans = sentence.get_spans("ner")
+        except Exception as e:
+            logging.error(f"Error while parsing NER annotation: {e}")
+            spans = []
+
+        for entity in spans:
+            if entity:
+                try:
+                    annos.append(
+                        {
+                            "text": entity.text,
+                            "label": entity.get_label("ner").value,
+                            "confidence": entity.get_label("ner").score,
+                            "start_pos": entity.start_position,
+                            "end_pos": entity.end_position
+                        }
+                    )
+                except Exception as e:
+                    logging.error(f"Error while parsing NER annotation: {e}")
     return annos
 
 
 def perform_ner_annotation(row: pd.Series,
                            tagger: flair.models.SequenceTagger) -> pd.DataFrame:
+    """
+    Perform NER annotation on a sentence
+
+    Args:
+        row (pd.Series): Row of dataframe with sentence
+        tagger (flair.models.SequenceTagger): Flair model for NER
+
+    Returns:
+        pd.DataFrame: Dataframe with NER annotations
+    """
+    if (not isinstance(row["sentence"], str)) \
+            or (not row["sentence"].strip()) \
+            or (row["sentence"].lower() == "nan") \
+            or (row["sentence"].lower() == "none"):
+        return pd.DataFrame()
 
     sentence = get_ner_annotations(row["sentence"], tagger)
     sentence_annos = parse_ner_annotation(sentence)
