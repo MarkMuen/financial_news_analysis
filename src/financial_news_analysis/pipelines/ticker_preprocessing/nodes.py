@@ -221,7 +221,7 @@ def join_ticker_data_sources(df_ek: pd.DataFrame, df_rh: pd.DataFrame) -> pd.Dat
         pd.DataFrame: Joined ticker data from both sources
     """
     df_ticker_joined = df_ek.merge(df_rh, how="inner", on=["ticker"])
-    return df_ticker_joined[["ticker", "name", "full_name"]]
+    return df_ticker_joined[["ticker_cleaned", "ticker", "name", "full_name"]]
 
 
 def select_relevant_names_ek_names(df_ek: pd.DataFrame) -> pd.DataFrame:

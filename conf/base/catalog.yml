@@ -88,4 +88,8 @@ article_raw_ner_annotations_all_the_news:
 
 ner_ticker_matches:
   type: pandas.ParquetDataSet
-  filepath: data/08_reporting/ner_ticker_matches.pq  
+  filepath: data/02_intermediate/ner_ticker_matches.pq
+
+df_matched_data_cleaned:
+  type: pandas.ParquetDataSet
+  filepath: data/08_reporting/df_matched_data_cleaned.pq
