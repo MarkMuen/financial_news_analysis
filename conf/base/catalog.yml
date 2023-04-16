@@ -85,3 +85,7 @@ eikon_ticker_preprocessed:
 article_raw_ner_annotations_all_the_news:
   type: pandas.ParquetDataSet
   filepath: data/02_intermediate/article_raw_ner_annotations_all_the_news.pq
+
+ner_ticker_matches:
+  type: pandas.ParquetDataSet
+  filepath: data/08_reporting/ner_ticker_matches.pq  

@@ -5,6 +5,7 @@ from .utils import process_article_to_sents, perform_ner_annotation, \
 from tqdm import tqdm
 from flair.models import SequenceTagger
 
+
 tqdm.pandas()
 
 
