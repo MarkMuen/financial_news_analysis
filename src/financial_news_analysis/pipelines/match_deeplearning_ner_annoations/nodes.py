@@ -14,6 +14,24 @@ tqdm.pandas()
 ALLOWED_ANNOATION_TYPES = ["ORG"]
 
 
+def merge_ner_anntotations(df_ner_header: pd.DataFrame,
+                           df_ner_article: pd.DataFrame) -> pd.DataFrame:
+    """Merge Header and Article NER Annotations DataFrames and add source column
+
+    Args:
+        df_ner_header (pd.DataFrame): Ner Annotations for header data
+        df_ner_article (pd.DataFrame): Ner Annotations for article data
+
+    Returns:
+        pd.DataFrame: Ner Annotations for header and article data
+    """
+    logging.info("Merging NER annotations")
+    df_ner_header["source"] = "header"
+    df_ner_article["source"] = "article"
+    df_ner = pd.concat([df_ner_header, df_ner_article], ignore_index=True)
+    return df_ner
+
+
 def filter_ner_annotations(df_annotations: pd.DataFrame) -> pd.DataFrame:
     """Filter NER annotations to only include allowed types
 

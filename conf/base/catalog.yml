@@ -70,6 +70,10 @@ article_ner_annotations_all_the_news:
   type: pandas.ParquetDataSet
   filepath: data/02_intermediate/article_ner_annotations_all_the_news.pq
 
+merged_ner_annotations_all_the_news:
+  type: pandas.ParquetDataSet
+  filepath: data/02_intermediate/merged_ner_annotations_all_the_news.pq
+
 publisher_stats_all_the_news_data:
   type: pandas.ParquetDataSet
   filepath: data/08_reporting/publisher_stats_all_the_news_data.pq

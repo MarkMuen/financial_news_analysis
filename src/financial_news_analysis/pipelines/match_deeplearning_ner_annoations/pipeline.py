@@ -4,15 +4,23 @@ generated using Kedro 0.18.5
 """
 
 from kedro.pipeline import Pipeline, node, pipeline
-from .nodes import ner_ticker_matching, filter_ner_annotations, clean_ner_annotations
+from .nodes import ner_ticker_matching, filter_ner_annotations, \
+    clean_ner_annotations, merge_ner_anntotations
 
 
 def create_pipeline(**kwargs) -> Pipeline:
     return pipeline(
         [
             node(
+                func=merge_ner_anntotations,
+                inputs=["title_ner_annotations_all_the_news",
+                        "article_ner_annotations_all_the_news"],
+                outputs="merged_ner_annotations_all_the_news",
+                name="merge_ner_anntotations",
+            ),
+            node(
                 func=filter_ner_annotations,
-                inputs=["title_ner_annotations_all_the_news"],
+                inputs=["merged_ner_annotations_all_the_news"],
                 outputs="df_ner_filtered",
                 name="filter_ner_annotations",
             ),

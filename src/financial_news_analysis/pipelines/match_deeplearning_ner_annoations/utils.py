@@ -96,14 +96,14 @@ def match_strict(ner: str,
         return False
 
 
-def combine_name_matches(df_matches):
-    """_summary_
+def combine_name_matches(df_matches: pd.DataFrame) -> pd.DataFrame:
+    """Combine Matches for different name columns
 
     Args:
-        df_matches (_type_): _description_
+        df_matches (pd.DataFrame): Matches per name column
 
     Returns:
-        _type_: _description_
+        pd.DataFrame: Combined Matches
     """
     df_matches = df_matches.sum(axis=1)
     df_matches = df_matches.apply(lambda x: True if x >= 1 else False)
@@ -113,11 +113,11 @@ def combine_name_matches(df_matches):
 def calculate_matches(ner: str, df_ticker: pd.DataFrame) -> pd.DataFrame:
     """
     Args:
-        ner (str): _description_
-        df_ticker (pd.DataFrame): _description_
+        ner (str): Named Entity Annotation
+        df_ticker (pd.DataFrame): DataFrame containing ticker data and names
 
     Returns:
-        pd.DataFrame: _description_
+        pd.DataFrame: Matches between NER and ticker data
     """
     df_matches = pd.DataFrame()
     name_cols = [col for col in df_ticker.columns if ("name" in col)
@@ -132,11 +132,12 @@ def calculate_matches(ner: str, df_ticker: pd.DataFrame) -> pd.DataFrame:
 def set_column_names(df_matches: pd.DataFrame, df_ticker: pd.DataFrame) -> pd.DataFrame:
     """
     Args:
-        df_matches (pd.DataFrame): _description_
-        df_ticker (pd.DataFrame): _description_
+        df_matches (pd.DataFrame): Matches between NER and ticker data
+        df_ticker (pd.DataFrame): Ticker data with names
 
     Returns:
-        pd.DataFrame: _description_"""
+        pd.DataFrame: Matches between NER and ticker data with column names
+    """
 
     df_matches.columns = df_ticker["ticker_cleaned"].tolist()
     return df_matches
@@ -146,10 +147,10 @@ def format_match_data(df_matches: pd.DataFrame) -> pd.DataFrame:
     """_summary_
 
     Args:
-        df_matches (pd.DataFrame): _description_
+        df_matches (pd.DataFrame): Matches between NER and ticker data with column names
 
     Returns:
-        pd.DataFrame: _description_
+        pd.DataFrame: Formatted matches between NER and ticker data
     """
     data = []
     for col in tqdm(df_matches.columns):
