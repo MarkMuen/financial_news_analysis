@@ -97,3 +97,7 @@ ner_ticker_matches:
 df_matched_data_cleaned:
   type: pandas.ParquetDataSet
   filepath: data/08_reporting/df_matched_data_cleaned.pq
+
+title_sentiments_all_the_news_data:
+  type: pandas.ParquetDataSet
+  filepath: data/02_intermediate/title_sentiments_all_the_news_data.pq
