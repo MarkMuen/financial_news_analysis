@@ -4,7 +4,7 @@ generated using Kedro 0.18.5
 """
 
 from kedro.pipeline import Pipeline, node, pipeline
-from .nodes import preprocess_data, clean_texts, filter_news_data, create_text_col,\
+from .nodes import preprocess_data, clean_texts, filter_news_data, create_text_col, \
     create_stats_publisher, create_stats_time
 
 

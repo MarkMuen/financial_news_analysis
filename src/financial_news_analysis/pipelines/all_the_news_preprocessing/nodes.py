@@ -25,7 +25,7 @@ def create_stats_publisher(df_news: pd.DataFrame) -> pd.DataFrame:
     """Create Statistic for Publishers
 
     Args:
-        df_news (pd.DataFrame): News data 
+        df_news (pd.DataFrame): News data
 
     Returns:
         pd.DataFrame: Descreptive statisics for publisher
@@ -86,7 +86,7 @@ def clean_texts(df_news: pd.DataFrame) -> pd.DataFrame:
         pd.DataFrame: All the news data with cleaned texts
     """
     for c in TEXT_COLS:
-        df_news[c] = df_news[c].astype(str) 
+        df_news[c] = df_news[c].astype(str)
         df_news[f"{c}_cleaned"] = df_news[c].apply(lambda x: preprocess_string(x))
     return df_news
 
