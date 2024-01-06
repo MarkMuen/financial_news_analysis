@@ -109,3 +109,7 @@ title_sentiments_all_the_news_data_filtered_extended:
 stats_sentiments_all_the_news_data_filtered:
   type: pandas.ParquetDataSet
   filepath: data/08_reporting/stats_sentiments_all_the_news_data_filtered.pq
+
+all_the_news_full_text_sentiments_sample:
+  type: pandas.ParquetDataSet
+  filepath: data/02_intermediate/all_the_news_full_text_sentiments_sample.pq

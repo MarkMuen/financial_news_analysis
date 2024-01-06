@@ -1,3 +1,1 @@
 column_name_to_analyze: "sentence"
-model_name_finance: "mrm8488/distilroberta-finetuned-financial-news-sentiment-analysis"
-model_name_general: "siebert/sentiment-roberta-large-english"

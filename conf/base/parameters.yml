@@ -4,3 +4,5 @@ headline_config_source_g: "guardian"
 headline_config_source_r: "reuters" 
 start_date: "2018-05-02"
 all_the_news_articles_num_sent: 5
+model_name_finance: "mrm8488/distilroberta-finetuned-financial-news-sentiment-analysis"
+model_name_general: "siebert/sentiment-roberta-large-english"

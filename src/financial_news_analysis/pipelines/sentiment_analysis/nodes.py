@@ -16,7 +16,7 @@ class Sentiment():
     confidence: float
 
 
-def combine_data_frames(df_general: pd.DataFrame, 
+def combine_data_frames(df_general: pd.DataFrame,
                         df_finance: pd.DataFrame) -> pd.DataFrame:
     """_summary_
 
