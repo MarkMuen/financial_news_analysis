@@ -56,7 +56,7 @@ def preprocess_data(df_news: pd.DataFrame) -> pd.DataFrame:
 
 
 def create_text_col(df_news: pd.DataFrame) -> pd.DataFrame:
-    """Add text column as concat of tile and article
+    """Add text column as concat of title and article
 
     Args:
         df_news (pd.DataFrame): News Dataframe containing
