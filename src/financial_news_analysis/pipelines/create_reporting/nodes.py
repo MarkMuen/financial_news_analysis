@@ -49,7 +49,6 @@ def drop_id_columns(df_matched_data: pd.DataFrame) -> pd.DataFrame:
         pandas.DataFrame: Dataframe with the id columns dropped
     """
     df_matched_data = df_matched_data.drop(columns=['ner_id',
-                                                    'article_id',
                                                     'sentence_id',
                                                     'sentence_nr'])
     return df_matched_data
@@ -67,5 +66,11 @@ def clean_data_types(df_data: pd.DataFrame) -> pd.DataFrame:
     df_data["year"] = df_data["year"].astype(int)
     df_data["month"] = df_data["month"].astype(int)
     df_data["day"] = df_data["day"].astype(int)
+    df_data["hour"] = df_data["date"].apply(lambda x: pd.to_datetime(x).hour) \
+        .astype(int)
+    df_data["minute"] = df_data["date"].apply(lambda x: pd.to_datetime(x).minute) \
+        .astype(int)
+    df_data["second"] = df_data["date"].apply(lambda x: pd.to_datetime(x).second) \
+        .astype(int)
 
     return df_data
