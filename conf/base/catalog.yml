@@ -117,3 +117,11 @@ all_the_news_full_text_sentiments_sample:
 all_the_news_sentiments_comparison:
   type: pandas.ParquetDataSet
   filepath: data/08_reporting/all_the_news_sentiments_comparison.pq
+
+article_sentences_all_the_news_data_sample_full_text:
+  type: pandas.ParquetDataSet
+  filepath: data/02_intermediate/article_sentences_all_the_news_data_sample_full_text.pq
+
+article_ner_annotations_all_the_news_sample_full_text:
+  type: pandas.ParquetDataSet
+  filepath: data/02_intermediate/article_ner_annotations_all_the_news_sample_full_text.pq
