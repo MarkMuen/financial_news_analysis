@@ -48,8 +48,16 @@ def random_sample_news_data(df_news: pd.DataFrame, sample_size: float) -> pd.Dat
 
 
 def get_sentiment_for_article(df_news: pd.DataFrame,
-                              model_name: str):
+                              model_name: str) -> pd.DataFrame:
+    """Create sentiment for each article using DL model and full text
 
+    Args:
+        df_news (pd.DataFrame): Pandas dataframe with news data and full texts
+        model_name (str): Name of the model used for sentiment analysis
+
+    Returns:
+        pd.DataFrame: Sentiment predictions for each article and sentiment
+    """
     pipe = create_text_classification_pipeline(model_name)
     data = []
     for row in tqdm(df_news.iterrows(), total=df_news.shape[0]):
@@ -67,15 +75,99 @@ def get_sentiment_for_article(df_news: pd.DataFrame,
 
 
 def filter_max_confidence_sentiment(df_sents: pd.DataFrame) -> pd.DataFrame:
-    """_summary_
+    """Filter sentiment with highest confidence
 
     Args:
-        df_sents (pd.DataFrame): _description_
+        df_sents (pd.DataFrame): Sentiments created using DL model
 
     Returns:
-        pd.DataFrame: _description_
+        pd.DataFrame: Maximum confidence sentiment per article
     """
     df_sents_filtered = df_sents.sort_values(["confidence"], ascending=True) \
         .groupby(["article_id", "source"]) \
         .tail(1)
     return df_sents_filtered
+
+
+def compare_sentiment_overlap(df_sents_title: pd.DataFrame,
+                              df_sents_full_text: pd.DataFrame,
+                              model_name: str) -> pd.DataFrame:
+    """Compare sentiments created using title and full text
+
+    Args:
+        df_sents_title (pd.DataFrame): Sentiments created using title
+        df_sents_full_text (pd.DataFrame): Sentiments created using full text
+        model_name (str): Model name used for sentiment analysis
+
+    Returns:
+        pd.DataFrame: Comparison of overlapping sentiments
+    """
+    df_sents_title = df_sents_title[df_sents_title["source"] == model_name].copy()
+    df_sents_full_text = df_sents_full_text[
+            df_sents_full_text["source"] == model_name
+        ].copy()
+    df_sents_merged = df_sents_title.merge(df_sents_full_text,
+                                           on="article_id",
+                                           suffixes=("_title", "_full_text"))
+    mask = df_sents_merged["sentiment_title"] == df_sents_merged["sentiment_full_text"]
+    df_sents_merged["sentiment_match"] = mask
+    accuracy = df_sents_merged["sentiment_match"].sum() / df_sents_merged.shape[0]
+    result = pd.DataFrame([{"model": model_name,
+                            "measure": "accuracy",
+                            "value": accuracy}])
+    return result
+
+
+def compare_sentiment_correlation(df_sents_title: pd.DataFrame,
+                                  df_sents_full_text: pd.DataFrame,
+                                  model_name: str) -> pd.DataFrame:
+    """Compare sentiments created using title and full text by calculating correlation
+    of encoded sentiments
+
+    Args:
+        df_sents_title (pd.DataFrame): Sentiments created using title
+        df_sents_full_text (pd.DataFrame): Sentiments created using full text
+        model_name (str): Model name used for sentiment analysis
+
+    Returns:
+        pd.DataFrame: Correlation of encoded sentiments
+    """
+
+    df_sents_title = df_sents_title[df_sents_title["source"] == model_name].copy()
+    df_sents_full_text = df_sents_full_text[
+        df_sents_full_text["source"] == model_name].copy()
+
+    df_sents_title["sentiment_encoded"] = df_sents_title["sentiment"].map({
+        "positive": 1,
+        "negative": -1,
+        "neutral": 0
+    })
+    df_sents_full_text["sentiment_encoded"] = df_sents_full_text["sentiment"].map({
+        "positive": 1,
+        "negative": -1,
+        "neutral": 0
+    })
+    df_sents_merged = df_sents_title.merge(df_sents_full_text,
+                                           on="article_id",
+                                           suffixes=("_title", "_full_text"))
+    correlation = df_sents_merged["sentiment_encoded_title"].corr(
+        df_sents_merged["sentiment_encoded_full_text"]
+    )
+    result = pd.DataFrame([{"model": model_name,
+                            "measure": "correlation",
+                            "value": correlation}])
+    return result
+
+
+def merge_comparison_results(df_overlap: pd.DataFrame,
+                             df_correlation: pd.DataFrame) -> pd.DataFrame:
+    """Merge comparison results
+
+    Args:
+        df_overlap (pd.DataFrame): Comparison of overlapping sentiments
+        df_correlation (pd.DataFrame): Correlation of encoded sentiments
+
+    Returns:
+        pd.DataFrame: Comparison results
+    """
+    return pd.concat([df_overlap, df_correlation], ignore_index=True)
