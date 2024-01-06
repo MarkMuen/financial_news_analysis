@@ -2,7 +2,7 @@ from typing import List
 from dataclasses import dataclass
 import pandas as pd
 from tqdm import tqdm
-from transformers import AutoTokenizer, AutoModelForSequenceClassification,\
+from transformers import AutoTokenizer, AutoModelForSequenceClassification, \
      TextClassificationPipeline
 
 
