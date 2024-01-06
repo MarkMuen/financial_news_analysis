@@ -101,3 +101,11 @@ df_matched_data_cleaned:
 title_sentiments_all_the_news_data:
   type: pandas.ParquetDataSet
   filepath: data/02_intermediate/title_sentiments_all_the_news_data.pq
+
+title_sentiments_all_the_news_data_filtered_extended:
+  type: pandas.ParquetDataSet
+  filepath: data/08_reporting/title_sentiments_all_the_news_data_filtered_extended.pq
+
+stats_sentiments_all_the_news_data_filtered:
+  type: pandas.ParquetDataSet
+  filepath: data/08_reporting/stats_sentiments_all_the_news_data_filtered.pq
