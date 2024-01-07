@@ -41,7 +41,8 @@ def create_pipeline(**kwargs) -> Pipeline:
             func=compare_sentiment_overlap,
             inputs=["title_sentiments_all_the_news_data_filtered_extended",
                     "all_the_news_full_text_sentiments_sample",
-                    "params:model_name_finance"],
+                    "params:model_name_finance",
+                    "params:number_of_samples"],
             outputs="all_the_news_sentiments_overlap",
             name="compare_sentiment_overlap"
         ),
@@ -49,7 +50,8 @@ def create_pipeline(**kwargs) -> Pipeline:
             func=compare_sentiment_correlation,
             inputs=["title_sentiments_all_the_news_data_filtered_extended",
                     "all_the_news_full_text_sentiments_sample",
-                    "params:model_name_finance"],
+                    "params:model_name_finance",
+                    "params:number_of_samples"],
             outputs="all_the_news_sentiments_coorelation",
             name="compare_sentiment_correlation"
         ),

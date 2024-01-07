@@ -91,13 +91,15 @@ def filter_max_confidence_sentiment(df_sents: pd.DataFrame) -> pd.DataFrame:
 
 def compare_sentiment_overlap(df_sents_title: pd.DataFrame,
                               df_sents_full_text: pd.DataFrame,
-                              model_name: str) -> pd.DataFrame:
+                              model_name: str,
+                              sample_size: float = None) -> pd.DataFrame:
     """Compare sentiments created using title and full text
 
     Args:
         df_sents_title (pd.DataFrame): Sentiments created using title
         df_sents_full_text (pd.DataFrame): Sentiments created using full text
         model_name (str): Model name used for sentiment analysis
+        sample_size (float): Percentage or number of sampled items
 
     Returns:
         pd.DataFrame: Comparison of overlapping sentiments
@@ -112,7 +114,9 @@ def compare_sentiment_overlap(df_sents_title: pd.DataFrame,
     mask = df_sents_merged["sentiment_title"] == df_sents_merged["sentiment_full_text"]
     df_sents_merged["sentiment_match"] = mask
     accuracy = df_sents_merged["sentiment_match"].sum() / df_sents_merged.shape[0]
+    sample_size = str(sample_size) if sample_size else "all"
     result = pd.DataFrame([{"model": model_name,
+                            "sample_size": sample_size,
                             "measure": "accuracy",
                             "value": accuracy}])
     return result
@@ -120,7 +124,8 @@ def compare_sentiment_overlap(df_sents_title: pd.DataFrame,
 
 def compare_sentiment_correlation(df_sents_title: pd.DataFrame,
                                   df_sents_full_text: pd.DataFrame,
-                                  model_name: str) -> pd.DataFrame:
+                                  model_name: str,
+                                  sample_size: float = None) -> pd.DataFrame:
     """Compare sentiments created using title and full text by calculating correlation
     of encoded sentiments
 
@@ -128,6 +133,7 @@ def compare_sentiment_correlation(df_sents_title: pd.DataFrame,
         df_sents_title (pd.DataFrame): Sentiments created using title
         df_sents_full_text (pd.DataFrame): Sentiments created using full text
         model_name (str): Model name used for sentiment analysis
+        sample_size (float): Percentage or number of sampled items
 
     Returns:
         pd.DataFrame: Correlation of encoded sentiments
@@ -153,7 +159,9 @@ def compare_sentiment_correlation(df_sents_title: pd.DataFrame,
     correlation = df_sents_merged["sentiment_encoded_title"].corr(
         df_sents_merged["sentiment_encoded_full_text"]
     )
+    sample_size = str(sample_size) if sample_size else "all"
     result = pd.DataFrame([{"model": model_name,
+                            "sample_size": sample_size,
                             "measure": "correlation",
                             "value": correlation}])
     return result
