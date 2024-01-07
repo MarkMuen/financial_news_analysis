@@ -39,10 +39,15 @@ def random_sample_news_data(df_news: pd.DataFrame, sample_size: float) -> pd.Dat
         pd.DataFrame: Random sample of news data
     """
     if sample_size > 1:
+        print("Sample size is larger than 1, using absolute number of samples")
         sample_size = int(sample_size)
         df_news_sample = df_news.sample(n=sample_size, axis=0, random_state=2)
-    else:
+    elif sample_size < 1:
+        print("Sample size is smaller than 1, using percentage of samples")
         df_news_sample = df_news.sample(frac=sample_size, axis=0, random_state=2)
+    else:
+        print("Sample size is 1, using all the data")
+        df_news_sample = df_news.copy()
 
     return df_news_sample
 
@@ -92,7 +97,7 @@ def filter_max_confidence_sentiment(df_sents: pd.DataFrame) -> pd.DataFrame:
 def compare_sentiment_overlap(df_sents_title: pd.DataFrame,
                               df_sents_full_text: pd.DataFrame,
                               model_name: str,
-                              sample_size: float = None) -> pd.DataFrame:
+                              sample_size: float) -> pd.DataFrame:
     """Compare sentiments created using title and full text
 
     Args:
@@ -114,7 +119,7 @@ def compare_sentiment_overlap(df_sents_title: pd.DataFrame,
     mask = df_sents_merged["sentiment_title"] == df_sents_merged["sentiment_full_text"]
     df_sents_merged["sentiment_match"] = mask
     accuracy = df_sents_merged["sentiment_match"].sum() / df_sents_merged.shape[0]
-    sample_size = str(sample_size) if sample_size else "all"
+    sample_size = str(sample_size) if sample_size and int(sample_size) != 1 else "all"
     result = pd.DataFrame([{"model": model_name,
                             "sample_size": sample_size,
                             "measure": "accuracy",
@@ -125,7 +130,7 @@ def compare_sentiment_overlap(df_sents_title: pd.DataFrame,
 def compare_sentiment_correlation(df_sents_title: pd.DataFrame,
                                   df_sents_full_text: pd.DataFrame,
                                   model_name: str,
-                                  sample_size: float = None) -> pd.DataFrame:
+                                  sample_size: float) -> pd.DataFrame:
     """Compare sentiments created using title and full text by calculating correlation
     of encoded sentiments
 
@@ -159,7 +164,7 @@ def compare_sentiment_correlation(df_sents_title: pd.DataFrame,
     correlation = df_sents_merged["sentiment_encoded_title"].corr(
         df_sents_merged["sentiment_encoded_full_text"]
     )
-    sample_size = str(sample_size) if sample_size else "all"
+    sample_size = str(sample_size) if sample_size and int(sample_size) != 1 else "all"
     result = pd.DataFrame([{"model": model_name,
                             "sample_size": sample_size,
                             "measure": "correlation",

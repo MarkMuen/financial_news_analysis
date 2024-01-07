@@ -62,10 +62,15 @@ def random_sample_news_data(df_news: pd.DataFrame, sample_size: float) -> pd.Dat
         pd.DataFrame: Random sample of news data
     """
     if sample_size > 1:
+        print("Sample size is larger than 1, using absolute number of samples")
         sample_size = int(sample_size)
         df_news_sample = df_news.sample(n=sample_size, axis=0, random_state=2)
-    else:
+    elif sample_size < 1:
+        print("Sample size is smaller than 1, using percentage of samples")
         df_news_sample = df_news.sample(frac=sample_size, axis=0, random_state=2)
+    else:
+        print("Sample size is 1, using all the data")
+        df_news_sample = df_news.copy()
 
     return df_news_sample
 
