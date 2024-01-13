@@ -35,6 +35,24 @@ def create_pipeline(**kwargs) -> Pipeline:
                 inputs=["df_ner_cleaned", "eikon_ticker_merged"],
                 outputs="ner_ticker_matches",
                 name="ner_ticker_matching",
+            ),
+            node(
+                func=filter_ner_annotations,
+                inputs=["article_ner_annotations_all_the_news_sample_full_text"],
+                outputs="df_ner_filtered_full_text_sample",
+                name="filter_ner_annotations_full_text",
+            ),
+            node(
+                func=clean_ner_annotations,
+                inputs=["df_ner_filtered_full_text_sample"],
+                outputs="df_ner_cleaned_full_text_sample",
+                name="clean_ner_annotations_full_text"
+            ),
+            node(
+                func=ner_ticker_matching,
+                inputs=["df_ner_cleaned_full_text_sample", "eikon_ticker_merged"],
+                outputs="ner_ticker_matches_full_text_sample",
+                name="ner_ticker_matching_full_text",
             )
         ]
     )

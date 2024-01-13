@@ -126,3 +126,7 @@ article_sentences_all_the_news_data_sample_full_text:
 article_ner_annotations_all_the_news_sample_full_text:
   type: pandas.ParquetDataSet
   filepath: data/02_intermediate/article_ner_annotations_all_the_news_sample_full_text.pq
+
+ner_ticker_matches_full_text_sample:
+  type: pandas.ParquetDataSet
+  filepath: data/02_intermediate/ner_ticker_matches_full_text_sample.pq
