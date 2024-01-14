@@ -24,7 +24,7 @@ def create_annotations_from_raw_text(art_idx: int,
                                      news: str,
                                      ticker: str,
                                      names: List[str]) -> NerAnnotation:
-    """ Function to find company names in preprocessed news article 
+    """ Function to find company names in preprocessed news article
 
     Args:
         art_idx (int): Index of current article
