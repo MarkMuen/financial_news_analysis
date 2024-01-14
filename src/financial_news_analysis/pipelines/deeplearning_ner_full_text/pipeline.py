@@ -15,7 +15,7 @@ def create_pipeline(**kwargs) -> Pipeline:
             node(
                 func=random_sample_news_data,
                 inputs=["the_news_data_relevant_cols_for_full_text_ner",
-                        "params:number_of_samples"],
+                        "params:number_of_samples_ner"],
                 outputs="all_the_news_random_sample_for_full_text_ner",
                 name="select_random_sample_for_full_text_ner"
             ),

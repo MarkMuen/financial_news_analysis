@@ -172,15 +172,26 @@ def compare_sentiment_correlation(df_sents_title: pd.DataFrame,
     return result
 
 
-def merge_comparison_results(df_overlap: pd.DataFrame,
-                             df_correlation: pd.DataFrame) -> pd.DataFrame:
+def merge_comparison_results(df_overlap_finance: pd.DataFrame,
+                             df_correlation_finance: pd.DataFrame,
+                             df_overlap_general: pd.DataFrame,
+                             df_correlation_general: pd.DataFrame) -> pd.DataFrame:
     """Merge comparison results
 
     Args:
-        df_overlap (pd.DataFrame): Comparison of overlapping sentiments
-        df_correlation (pd.DataFrame): Correlation of encoded sentiments
-
+        df_overlap_finance (pd.DataFrame): Comparison of overlapping sentiments
+            for finance model
+        df_correlation_finance (pd.DataFrame): Correlation of encoded sentiments
+            for finance model
+        df_overlap_general (pd.DataFrame): Comparison of overlapping sentiments
+            for general model
+        df_correlation_general (pd.DataFrame): Correlation of encoded sentiments
+            for general model
     Returns:
         pd.DataFrame: Comparison results
     """
-    return pd.concat([df_overlap, df_correlation], ignore_index=True)
+    result = pd.concat([df_overlap_finance,
+                        df_correlation_finance,
+                        df_overlap_general,
+                        df_correlation_general])
+    return result
