@@ -130,3 +130,11 @@ article_ner_annotations_all_the_news_sample_full_text:
 ner_ticker_matches_full_text_sample:
   type: pandas.ParquetDataSet
   filepath: data/02_intermediate/ner_ticker_matches_full_text_sample.pq
+
+ner_matches_comparison:
+  type: pandas.ParquetDataSet
+  filepath: data/08_reporting/ner_matches_comparison.pq
+
+reporting_ner_comparison_overlap:
+  type: pandas.ParquetDataSet
+  filepath: data/08_reporting/reporting_ner_comparison_overlap.pq

@@ -26,7 +26,7 @@ def add_article_data(ner_ticker_matches: pd.DataFrame,
     ner_ticker_matches = ner_ticker_matches[['ner_id', 'ticker_name']]
 
     ner_ticker_matches = ner_ticker_matches.merge(df_annos,
-                                                  how='inner', 
+                                                  how='inner',
                                                   left_on='ner_id',
                                                   right_index=True)
 
@@ -74,3 +74,77 @@ def clean_data_types(df_data: pd.DataFrame) -> pd.DataFrame:
         .astype(int)
 
     return df_data
+
+
+def compare_ner_annotations(ner_ticker_matches: pd.DataFrame,
+                            ner_ticker_matching_full_text: pd.DataFrame,
+                            ner_anntoations: pd.DataFrame,
+                            ner_anntoations_full_text: pd.DataFrame) -> pd.DataFrame:
+    """Compare NER annotations from limited and full text
+
+    Args:
+        ner_ticker_matches (pd.DataFrame): NER annotations from limited text
+        ner_ticker_matching_full_text (pd.DataFrame): NER annotations from full text
+        ner_anntoations (pd.DataFrame): Annotations from limited text
+        ner_anntoations_full_text (pd.DataFrame): Annotations from full text
+
+    Returns:
+        pd.DataFrame: List of NER annotations that are only in full text
+    """
+
+    ner_annos_enriched = ner_ticker_matches.merge(
+        ner_anntoations,
+        left_on="ner_id",
+        right_index=True,
+        how="inner")
+
+    ner_annos_enriched_full_text = ner_ticker_matching_full_text.merge(
+        ner_anntoations_full_text,
+        left_on="ner_id",
+        right_index=True,
+        how="inner"
+    )
+    relevant_cols = ["ticker_name", "article_id"]
+    ner_annos_enriched = ner_annos_enriched[relevant_cols].drop_duplicates()
+    ner_annos_enriched_full_text = ner_annos_enriched_full_text[relevant_cols] \
+        .drop_duplicates()
+    matched_ner_annos = ner_annos_enriched_full_text.merge(
+        ner_annos_enriched,
+        on=["article_id", "ticker_name"],
+        how="left",
+        indicator=True
+    )
+    matched_ner_annos = matched_ner_annos[
+        matched_ner_annos["_merge"] == "left_only"
+    ]
+    matched_ner_annos = matched_ner_annos.drop_duplicates()
+    matched_ner_annos["category"] = "full_text_only"
+    return matched_ner_annos.drop(columns="_merge")
+
+
+def calulate_overlap(df_ner_comparison: pd.DataFrame,
+                     df_ner_full_text: pd.DataFrame) -> pd.DataFrame:
+    """Calculate overlap of NER annotations between limited and full text
+
+    Args:
+        df_ner_comparison (pd.DataFrame): NER annotations in both limited
+            text and full text
+        df_ner_full_text (pd.DataFrame): NER annotations from full text
+    Returns:
+        pd.DataFrame: Overlap of NER annotations between limited and full text
+    """
+    relevant_cols = ["ticker_name", "article_id"]
+    df_ner_comparison = df_ner_comparison[relevant_cols].drop_duplicates()
+    df_ner_full_text = df_ner_full_text[relevant_cols].drop_duplicates()
+
+    sample_size = df_ner_full_text.shape[0]
+    un_matched_size = df_ner_comparison.shape[0]
+    matched_size = sample_size - un_matched_size
+    overlap = matched_size / sample_size
+    result = pd.DataFrame([{"sample_size": sample_size,
+                            "matched_size": matched_size,
+                            "un_matched_size": un_matched_size,
+                            "measure": "overlap",
+                            "value": overlap}])
+
+    return result
