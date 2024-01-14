@@ -1,4 +1,4 @@
-import string 
+import string
 from dataclasses import dataclass
 from typing import Callable
 import pandas as pd
@@ -68,7 +68,7 @@ def clean_names(name: str) -> str:
         return name
 
 
-def match_strict(ner: str, 
+def match_strict(ner: str,
                  name: str,
                  f_eval_tokens: Callable[[], bool],
                  f_eval_names: Callable[[], bool]) -> bool:
