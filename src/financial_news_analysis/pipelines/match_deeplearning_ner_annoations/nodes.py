@@ -83,3 +83,34 @@ def ner_ticker_matching(df_ner: pd.DataFrame, df_ticker: pd.DataFrame) -> pd.Dat
     df_matches = format_match_data(df_matches)
 
     return df_matches
+
+
+def seperate_ner_annotations(df_ner: pd.DataFrame,
+                             lower_percentage: float,
+                             upper_percentage: float) -> pd.DataFrame:
+    """Cut anntionations by percentage into smaller sub frames
+
+    Args:
+        df_ner (pd.DataFrame): Inital DataFrame with annotations
+        lower_percentage (float): Lower Percentage for cutting data
+        upper_percentage (float): Upper Percentage for cutting data
+
+    Returns:
+        pd.DataFrame: Subset of Ner Data
+    """
+    length_ner = df_ner.shape[0]
+    if lower_percentage != 0.0:
+        lower_bound = int(length_ner * lower_percentage)
+    else:
+        lower_bound = 0
+    if upper_percentage != 1.0:
+        upper_bound = int(length_ner * upper_percentage)
+    else:
+        upper_bound = length_ner
+
+    df_ner_sub = df_ner[lower_bound:upper_bound]
+    print(f"Length NER-Frame: {length_ner}")
+    print(f"Lower Bound: {lower_bound}")
+    print(f"Upper Bound: {upper_bound}")
+    print(f"Length NER-Sub-Frame: {df_ner_sub.shape[0]}")
+    return df_ner_sub

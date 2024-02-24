@@ -1,5 +1,11 @@
-# This is a boilerplate parameters config generated for pipeline 'match_deeplearning_ner_annoations'
-# using Kedro 0.18.5.
-#
-# Documentation for this file format can be found in "Parameters"
-# Link: https://kedro.readthedocs.io/en/0.18.5/kedro_project_setup/configuration.html#parameters
+lower_percentage_1: 0.0
+upper_percentage_1: 0.1
+upper_percentage_2: 0.2
+upper_percentage_3: 0.3
+upper_percentage_4: 0.4
+upper_percentage_5: 0.5
+upper_percentage_6: 0.6
+upper_percentage_7: 0.7
+upper_percentage_8: 0.8
+upper_percentage_9: 0.9
+upper_percentage_10: 1.0

@@ -5,12 +5,30 @@ generated using Kedro 0.18.5
 
 from kedro.pipeline import Pipeline, node, pipeline
 from .nodes import ner_ticker_matching, filter_ner_annotations, \
-    clean_ner_annotations, merge_ner_anntotations
+    clean_ner_annotations, merge_ner_anntotations, seperate_ner_annotations
 
 
 def create_pipeline(**kwargs) -> Pipeline:
     return pipeline(
         [
+            node(
+                func=filter_ner_annotations,
+                inputs=["article_ner_annotations_all_the_news_sample_full_text"],
+                outputs="df_ner_filtered_full_text_sample",
+                name="filter_ner_annotations_full_text",
+            ),
+            node(
+                func=clean_ner_annotations,
+                inputs=["df_ner_filtered_full_text_sample"],
+                outputs="df_ner_cleaned_full_text_sample",
+                name="clean_ner_annotations_full_text"
+            ),
+            node(
+                func=ner_ticker_matching,
+                inputs=["df_ner_cleaned_full_text_sample", "eikon_ticker_merged"],
+                outputs="ner_ticker_matches_full_text_sample",
+                name="ner_ticker_matching_full_text",
+            ),
             node(
                 func=merge_ner_anntotations,
                 inputs=["title_ner_annotations_all_the_news",
@@ -31,28 +49,154 @@ def create_pipeline(**kwargs) -> Pipeline:
                 name="clean_ner_annotations"
             ),
             node(
+                func=seperate_ner_annotations,
+                inputs=["df_ner_cleaned",
+                        "params:lower_percentage_1",
+                        "params:upper_percentage_1"],
+                outputs="df_ner_cleaned_sub_sample_1",
+                name="separate_ner_data_1"
+            ),
+            node(
+                func=seperate_ner_annotations,
+                inputs=["df_ner_cleaned",
+                        "params:upper_percentage_1",
+                        "params:upper_percentage_2"],
+                outputs="df_ner_cleaned_sub_sample_2",
+                name="separate_ner_data_2"
+            ),
+            node(
+                func=seperate_ner_annotations,
+                inputs=["df_ner_cleaned",
+                        "params:upper_percentage_2",
+                        "params:upper_percentage_3"],
+                outputs="df_ner_cleaned_sub_sample_3",
+                name="separate_ner_data_3"
+            ),
+            node(
+                func=seperate_ner_annotations,
+                inputs=["df_ner_cleaned",
+                        "params:upper_percentage_3",
+                        "params:upper_percentage_4"],
+                outputs="df_ner_cleaned_sub_sample_4",
+                name="separate_ner_data_4"
+            ),
+            node(
+                func=seperate_ner_annotations,
+                inputs=["df_ner_cleaned",
+                        "params:upper_percentage_4",
+                        "params:upper_percentage_5"],
+                outputs="df_ner_cleaned_sub_sample_5",
+                name="separate_ner_data_5"
+            ),
+            node(
+                func=seperate_ner_annotations,
+                inputs=["df_ner_cleaned",
+                        "params:upper_percentage_5",
+                        "params:upper_percentage_6"],
+                outputs="df_ner_cleaned_sub_sample_6",
+                name="separate_ner_data_6"
+            ),
+            node(
+                func=seperate_ner_annotations,
+                inputs=["df_ner_cleaned",
+                        "params:upper_percentage_6",
+                        "params:upper_percentage_7"],
+                outputs="df_ner_cleaned_sub_sample_7",
+                name="separate_ner_data_7"
+            ),
+            node(
+                func=seperate_ner_annotations,
+                inputs=["df_ner_cleaned",
+                        "params:upper_percentage_7",
+                        "params:upper_percentage_8"],
+                outputs="df_ner_cleaned_sub_sample_8",
+                name="separate_ner_data_8"
+            ),
+            node(
+                func=seperate_ner_annotations,
+                inputs=["df_ner_cleaned",
+                        "params:upper_percentage_8",
+                        "params:upper_percentage_9"],
+                outputs="df_ner_cleaned_sub_sample_9",
+                name="separate_ner_data_9"
+            ),
+            node(
+                func=seperate_ner_annotations,
+                inputs=["df_ner_cleaned",
+                        "params:upper_percentage_9",
+                        "params:upper_percentage_10"],
+                outputs="df_ner_cleaned_sub_sample_10",
+                name="separate_ner_data_10"
+            ),
+            node(
                 func=ner_ticker_matching,
-                inputs=["df_ner_cleaned", "eikon_ticker_merged"],
-                outputs="ner_ticker_matches",
-                name="ner_ticker_matching",
-            ),
-            node(
-                func=filter_ner_annotations,
-                inputs=["article_ner_annotations_all_the_news_sample_full_text"],
-                outputs="df_ner_filtered_full_text_sample",
-                name="filter_ner_annotations_full_text",
-            ),
-            node(
-                func=clean_ner_annotations,
-                inputs=["df_ner_filtered_full_text_sample"],
-                outputs="df_ner_cleaned_full_text_sample",
-                name="clean_ner_annotations_full_text"
+                inputs=["df_ner_cleaned_sub_sample_1",
+                        "eikon_ticker_merged"],
+                outputs="ner_ticker_matches_1",
+                name="ner_ticker_matching_1",
             ),
             node(
                 func=ner_ticker_matching,
-                inputs=["df_ner_cleaned_full_text_sample", "eikon_ticker_merged"],
-                outputs="ner_ticker_matches_full_text_sample",
-                name="ner_ticker_matching_full_text",
+                inputs=["df_ner_cleaned_sub_sample_2",
+                        "eikon_ticker_merged"],
+                outputs="ner_ticker_matches_2",
+                name="ner_ticker_matching_2",
+            ),
+            node(
+                func=ner_ticker_matching,
+                inputs=["df_ner_cleaned_sub_sample_3",
+                        "eikon_ticker_merged"],
+                outputs="ner_ticker_matches_3",
+                name="ner_ticker_matching_3",
+            ),
+            node(
+                func=ner_ticker_matching,
+                inputs=["df_ner_cleaned_sub_sample_4",
+                        "eikon_ticker_merged"],
+                outputs="ner_ticker_matches_4",
+                name="ner_ticker_matching_4",
+            ),
+            node(
+                func=ner_ticker_matching,
+                inputs=["df_ner_cleaned_sub_sample_5",
+                        "eikon_ticker_merged"],
+                outputs="ner_ticker_matches_5",
+                name="ner_ticker_matching_5",
+            ),
+            node(
+                func=ner_ticker_matching,
+                inputs=["df_ner_cleaned_sub_sample_6",
+                        "eikon_ticker_merged"],
+                outputs="ner_ticker_matches_6",
+                name="ner_ticker_matching_6",
+            ),
+            node(
+                func=ner_ticker_matching,
+                inputs=["df_ner_cleaned_sub_sample_7",
+                        "eikon_ticker_merged"],
+                outputs="ner_ticker_matches_7",
+                name="ner_ticker_matching_7",
+            ),
+            node(
+                func=ner_ticker_matching,
+                inputs=["df_ner_cleaned_sub_sample_8",
+                        "eikon_ticker_merged"],
+                outputs="ner_ticker_matches_8",
+                name="ner_ticker_matching_8",
+            ),
+            node(
+                func=ner_ticker_matching,
+                inputs=["df_ner_cleaned_sub_sample_9",
+                        "eikon_ticker_merged"],
+                outputs="ner_ticker_matches_9",
+                name="ner_ticker_matching_9",
+            ),
+            node(
+                func=ner_ticker_matching,
+                inputs=["df_ner_cleaned_sub_sample_10",
+                        "eikon_ticker_merged"],
+                outputs="ner_ticker_matches_10",
+                name="ner_ticker_matching_10",
             )
         ]
     )

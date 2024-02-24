@@ -84,15 +84,20 @@ def match_strict(ner: str,
     Returns:
         bool: _description_
     """
-    if ner and name:
-        tokens_ner = ner.split(" ")
-        tokens_name = name.split(" ")
-        bools_1 = [f_eval_tokens([t_ner == t_name for t_name in tokens_name])
-                   for t_ner in tokens_ner]
-        bools_2 = [f_eval_tokens([t_ner == t_name for t_ner in tokens_ner])
-                   for t_name in tokens_name]
-        return f_eval_names(bools_1) and f_eval_names(bools_2)
-    else:
+    try:
+        if ner and name:
+            tokens_ner = ner.split(" ")
+            tokens_name = name.split(" ")
+            bools_1 = [f_eval_tokens([t_ner == t_name for t_name in tokens_name])
+                       for t_ner in tokens_ner]
+            bools_2 = [
+                f_eval_tokens([t_ner == t_name for t_ner in tokens_ner])
+                for t_name in tokens_name]
+            return f_eval_names(bools_1) and f_eval_names(bools_2)
+        else:
+            return False
+    except Exception as e:
+        print(f"Found error during ticker matching {e}")
         return False
 
 

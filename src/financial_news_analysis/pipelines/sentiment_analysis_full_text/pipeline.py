@@ -6,7 +6,9 @@ generated using Kedro 0.18.5
 from kedro.pipeline import Pipeline, node, pipeline
 from .nodes import select_relevant_columns, random_sample_news_data, \
     get_sentiment_for_article, filter_max_confidence_sentiment, \
-    compare_sentiment_overlap, compare_sentiment_correlation, merge_comparison_results
+    compare_sentiment_overlap, compare_sentiment_correlation, \
+    merge_comparison_results, create_sentiment_statistics, \
+    combine_data_frames
 
 
 def create_pipeline(**kwargs) -> Pipeline:
@@ -94,5 +96,18 @@ def create_pipeline(**kwargs) -> Pipeline:
                     "all_the_news_sentiments_coorelation_general"],
             outputs="all_the_news_sentiments_comparison",
             name="merge_comparison_results"
+        ),
+        node(
+            func=combine_data_frames,
+            inputs=["all_the_news_full_text_sentiments_sample_general",
+                    "all_the_news_full_text_sentiments_sample_finance"],
+            outputs="full_text_sentiments_all_the_news_data",
+            name="merge_full_text_sentimens"
+        ),
+        node(
+            func=create_sentiment_statistics,
+            inputs=["full_text_sentiments_all_the_news_data"],
+            outputs="all_the_news_full_text_sentiments_stats",
+            name="create_sentiment_statistics_full_text"
         )
     ])

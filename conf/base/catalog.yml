@@ -142,3 +142,91 @@ ner_matches_comparison:
 reporting_ner_comparison_overlap:
   type: pandas.ParquetDataSet
   filepath: data/08_reporting/reporting_ner_comparison_overlap.pq
+
+df_ner_cleaned_sub_sample_1:
+  type: pandas.ParquetDataSet
+  filepath: data/02_intermediate/df_ner_cleaned_sub_sample_1.pq
+
+df_ner_cleaned_sub_sample_2:
+  type: pandas.ParquetDataSet
+  filepath: data/02_intermediate/df_ner_cleaned_sub_sample_2.pq
+
+df_ner_cleaned_sub_sample_3:
+  type: pandas.ParquetDataSet
+  filepath: data/02_intermediate/df_ner_cleaned_sub_sample_3.pq
+
+df_ner_cleaned_sub_sample_4:
+  type: pandas.ParquetDataSet
+  filepath: data/02_intermediate/df_ner_cleaned_sub_sample_4.pq
+
+df_ner_cleaned_sub_sample_5:
+  type: pandas.ParquetDataSet
+  filepath: data/02_intermediate/df_ner_cleaned_sub_sample_5.pq
+
+df_ner_cleaned_sub_sample_6:
+  type: pandas.ParquetDataSet
+  filepath: data/02_intermediate/df_ner_cleaned_sub_sample_6.pq
+
+df_ner_cleaned_sub_sample_7:
+  type: pandas.ParquetDataSet
+  filepath: data/02_intermediate/df_ner_cleaned_sub_sample_7.pq
+
+df_ner_cleaned_sub_sample_8:
+  type: pandas.ParquetDataSet
+  filepath: data/02_intermediate/df_ner_cleaned_sub_sample_8.pq
+
+df_ner_cleaned_sub_sample_9:
+  type: pandas.ParquetDataSet
+  filepath: data/02_intermediate/df_ner_cleaned_sub_sample_9.pq
+
+df_ner_cleaned_sub_sample_10:
+  type: pandas.ParquetDataSet
+  filepath: data/02_intermediate/df_ner_cleaned_sub_sample_10.pq
+
+ner_ticker_matches_1:
+  type: pandas.ParquetDataSet
+  filepath: data/02_intermediate/ner_ticker_matches_1.pq
+
+ner_ticker_matches_2:
+  type: pandas.ParquetDataSet
+  filepath: data/02_intermediate/ner_ticker_matches_2.pq
+
+ner_ticker_matches_3:
+  type: pandas.ParquetDataSet
+  filepath: data/02_intermediate/ner_ticker_matches_3.pq
+
+ner_ticker_matches_4:
+  type: pandas.ParquetDataSet
+  filepath: data/02_intermediate/ner_ticker_matches_4.pq
+
+ner_ticker_matches_5:
+  type: pandas.ParquetDataSet
+  filepath: data/02_intermediate/ner_ticker_matches_5.pq
+
+ner_ticker_matches_6:
+  type: pandas.ParquetDataSet
+  filepath: data/02_intermediate/ner_ticker_matches_6.pq
+
+ner_ticker_matches_7:
+  type: pandas.ParquetDataSet
+  filepath: data/02_intermediate/ner_ticker_matches_7.pq
+
+ner_ticker_matches_8:
+  type: pandas.ParquetDataSet
+  filepath: data/02_intermediate/ner_ticker_matches_8.pq
+
+ner_ticker_matches_9:
+  type: pandas.ParquetDataSet
+  filepath: data/02_intermediate/ner_ticker_matches_9.pq
+
+ner_ticker_matches_10:
+  type: pandas.ParquetDataSet
+  filepath: data/02_intermediate/ner_ticker_matches_10.pq
+
+full_text_sentiments_all_the_news_data:
+  type: pandas.ParquetDataSet
+  filepath: data/08_reporting/full_text_sentiments_all_the_news_data.pq
+
+all_the_news_full_text_sentiments_stats:
+  type: pandas.ParquetDataSet
+  filepath: data/08_reporting/all_the_news_full_text_sentiments_stats.pq

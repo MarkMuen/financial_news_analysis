@@ -195,3 +195,31 @@ def merge_comparison_results(df_overlap_finance: pd.DataFrame,
                         df_overlap_general,
                         df_correlation_general])
     return result
+
+
+def create_sentiment_statistics(df_sents: pd.DataFrame) -> pd.DataFrame:
+    """_summary_
+
+    Args:
+        df_sents (pd.DataFrame): _description_
+
+    Returns:
+        pd.DataFrame: _description_
+    """
+    stats = df_sents.groupby(["source", "sentiment"])["sen_id"]\
+        .count().reset_index(name="count")
+    return stats
+
+
+def combine_data_frames(df_general: pd.DataFrame,
+                        df_finance: pd.DataFrame) -> pd.DataFrame:
+    """_summary_
+
+    Args:
+        df_general (pd.DataFrame): _description_
+        df_finance (pd.DataFrame): _description_
+
+    Returns:
+        pd.DataFrame: _description_
+    """
+    return pd.concat([df_general, df_finance])
