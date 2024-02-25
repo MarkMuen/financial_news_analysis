@@ -97,6 +97,7 @@ ner_ticker_matches:
 df_matched_data_cleaned:
   type: pandas.ParquetDataSet
   filepath: data/08_reporting/df_matched_data_cleaned.pq
+  versioned: True
 
 title_sentiments_all_the_news_data:
   type: pandas.ParquetDataSet
@@ -138,10 +139,12 @@ ner_ticker_matches_full_text_sample:
 ner_matches_comparison:
   type: pandas.ParquetDataSet
   filepath: data/08_reporting/ner_matches_comparison.pq
+  versioned: True
 
 reporting_ner_comparison_overlap:
   type: pandas.ParquetDataSet
   filepath: data/08_reporting/reporting_ner_comparison_overlap.pq
+  versioned: True
 
 df_ner_cleaned_sub_sample_1:
   type: pandas.ParquetDataSet
