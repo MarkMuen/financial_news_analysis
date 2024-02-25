@@ -123,7 +123,8 @@ def compare_ner_annotations(ner_ticker_matches: pd.DataFrame,
 
 
 def calulate_overlap(df_ner_comparison: pd.DataFrame,
-                     df_ner_full_text: pd.DataFrame) -> pd.DataFrame:
+                     df_ner_full_text: pd.DataFrame,
+                     ner_anntoations_full_text: pd.DataFrame) -> pd.DataFrame:
     """Calculate overlap of NER annotations between limited and full text
 
     Args:
@@ -133,11 +134,19 @@ def calulate_overlap(df_ner_comparison: pd.DataFrame,
     Returns:
         pd.DataFrame: Overlap of NER annotations between limited and full text
     """
+    df_ner_full_text_enriched = df_ner_full_text.merge(
+        ner_anntoations_full_text,
+        left_on="ner_id",
+        right_index=True,
+        how="inner"
+    )
+
     relevant_cols = ["ticker_name", "article_id"]
     df_ner_comparison = df_ner_comparison[relevant_cols].drop_duplicates()
-    df_ner_full_text = df_ner_full_text[relevant_cols].drop_duplicates()
+    df_ner_full_text_enriched = df_ner_full_text_enriched[relevant_cols] \
+        .drop_duplicates()
 
-    sample_size = df_ner_full_text.shape[0]
+    sample_size = df_ner_full_text_enriched.shape[0]
     un_matched_size = df_ner_comparison.shape[0]
     matched_size = sample_size - un_matched_size
     overlap = matched_size / sample_size

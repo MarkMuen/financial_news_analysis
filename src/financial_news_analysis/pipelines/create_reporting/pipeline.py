@@ -31,7 +31,8 @@ def create_pipeline(**kwargs) -> Pipeline:
         node(
             func=calulate_overlap,
             inputs=["ner_matches_comparison",
-                    "ner_ticker_matches_full_text_sample"],
+                    "ner_ticker_matches_full_text_sample",
+                    "article_ner_annotations_all_the_news_sample_full_text"],
             outputs="reporting_ner_comparison_overlap",
             name="calulate_overlap"
         ),
