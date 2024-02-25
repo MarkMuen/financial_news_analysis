@@ -5,7 +5,8 @@ generated using Kedro 0.18.5
 
 from kedro.pipeline import Pipeline, node, pipeline
 from .nodes import ner_ticker_matching, filter_ner_annotations, \
-    clean_ner_annotations, merge_ner_anntotations, seperate_ner_annotations
+    clean_ner_annotations, merge_ner_anntotations, \
+    seperate_ner_annotations, combine_ticker_ner_matches
 
 
 def create_pipeline(**kwargs) -> Pipeline:
@@ -197,6 +198,21 @@ def create_pipeline(**kwargs) -> Pipeline:
                         "eikon_ticker_merged"],
                 outputs="ner_ticker_matches_10",
                 name="ner_ticker_matching_10",
+            ),
+            node(
+                func=combine_ticker_ner_matches,
+                inputs=["ner_ticker_matches_1",
+                        "ner_ticker_matches_2",
+                        "ner_ticker_matches_3",
+                        "ner_ticker_matches_4",
+                        "ner_ticker_matches_5",
+                        "ner_ticker_matches_6",
+                        "ner_ticker_matches_7",
+                        "ner_ticker_matches_8",
+                        "ner_ticker_matches_9",
+                        "ner_ticker_matches_10"],
+                outputs="ner_ticker_matches",
+                name="combine_ticker_ner_matches"
             )
         ]
     )

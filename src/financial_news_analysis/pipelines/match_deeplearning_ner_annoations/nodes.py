@@ -114,3 +114,32 @@ def seperate_ner_annotations(df_ner: pd.DataFrame,
     print(f"Upper Bound: {upper_bound}")
     print(f"Length NER-Sub-Frame: {df_ner_sub.shape[0]}")
     return df_ner_sub
+
+
+def combine_ticker_ner_matches(ner_ticker_matches_1: pd.DataFrame,
+                               ner_ticker_matches_2: pd.DataFrame,
+                               ner_ticker_matches_3: pd.DataFrame,
+                               ner_ticker_matches_4: pd.DataFrame,
+                               ner_ticker_matches_5: pd.DataFrame,
+                               ner_ticker_matches_6: pd.DataFrame,
+                               ner_ticker_matches_7: pd.DataFrame,
+                               ner_ticker_matches_8: pd.DataFrame,
+                               ner_ticker_matches_9: pd.DataFrame,
+                               ner_ticker_matches_10: pd.DataFrame) -> pd.DataFrame:
+    """Combine two dataframes with NER annotations
+
+    Args:
+        df_ner_1 (pd.DataFrame): First DataFrame with NER annotations
+        df_ner_2 (pd.DataFrame): Second DataFrame with NER annotations
+
+    Returns:
+        pd.DataFrame: Combined DataFrame with NER annotations
+    """
+    ner_ticker_matches = pd.concat(
+        [ner_ticker_matches_1, ner_ticker_matches_2, ner_ticker_matches_3,
+         ner_ticker_matches_4, ner_ticker_matches_5, ner_ticker_matches_6,
+         ner_ticker_matches_7, ner_ticker_matches_8, ner_ticker_matches_9,
+         ner_ticker_matches_10],
+        ignore_index=True
+        )
+    return ner_ticker_matches
