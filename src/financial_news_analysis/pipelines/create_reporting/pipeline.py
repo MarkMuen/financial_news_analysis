@@ -20,6 +20,15 @@ def create_pipeline(**kwargs) -> Pipeline:
             name="add_article_data"
         ),
         node(
+            func=add_article_data,
+            inputs=["ner_ticker_matches",
+                    "ek_rh_merged_ticker_data",
+                    "title_ner_annotations_all_the_news",
+                    "all_the_news"],
+            outputs="df_matched_data_title_only",
+            name="add_article_data_title_only"
+        ),
+        node(
             func=compare_ner_annotations,
             inputs=["ner_ticker_matches",
                     "ner_ticker_matches_full_text_sample",
@@ -43,9 +52,21 @@ def create_pipeline(**kwargs) -> Pipeline:
             name="drop_id_columns"
         ),
         node(
+            func=drop_id_columns,
+            inputs="df_matched_data_title_only",
+            outputs="df_matched_data_title_only_columns_dropped",
+            name="drop_id_columns_title_only"
+        ),
+        node(
             func=clean_data_types,
             inputs="df_matched_data_columns_dropped",
             outputs="df_matched_data_cleaned",
             name="clean_data_types"
+        ),
+        node(
+            func=clean_data_types,
+            inputs="df_matched_data_title_only_columns_dropped",
+            outputs="df_matched_data_title_only_cleaned",
+            name="clean_data_types_title_only"
         )
     ])
